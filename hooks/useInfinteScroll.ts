@@ -1,7 +1,6 @@
-import { MutableRefObject, useEffect, useState, useRef } from 'react'
+import { MutableRefObject, useEffect, useRef } from 'react'
 
-const useInfiniteScroll = (refList: MutableRefObject<any>) => {
-  const [page, setPage] = useState<number>(1)
+const useInfiniteScroll = (refList: MutableRefObject<any>, setPage) => {
   const refLastItems = useRef(0)
 
   const options = {
@@ -12,7 +11,7 @@ const useInfiniteScroll = (refList: MutableRefObject<any>) => {
 
   const onInterceptLast = (entries, observer) => {
     if (entries[0].isIntersecting) {
-      setPage(page + 1)
+      setPage((page) => page + 1)
     }
   }
 
@@ -28,8 +27,6 @@ const useInfiniteScroll = (refList: MutableRefObject<any>) => {
       observerLast.disconnect()
     }
   }, [refList.current])
-
-  return [page, setPage]
 }
 
 export default useInfiniteScroll

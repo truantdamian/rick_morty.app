@@ -21,10 +21,11 @@ const Characters = () => {
   const refList = useRef(null)
   const refCharacters = useRef([])
   const [characters, setCharacters] = useState<Character[]>([])
-  const [page, setPage] = useInfiniteScroll(refList)
+  const [page, setPage] = useState<number>(1)
+  useInfiniteScroll(refList, setPage)
   const { state, dispatch } = useContext(AppContext)
 
-  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+  const { loading, data } = useQuery(GET_CHARACTERS, {
     variables: { page, name: state.search },
   })
 

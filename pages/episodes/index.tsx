@@ -21,10 +21,11 @@ const Episodes = () => {
 
   const refList = useRef(null)
   const [epidodeData, setEpisodeData] = useState<Episode[]>([])
-  const [page] = useInfiniteScroll(refList)
+  const [page, setPage] = useState<number>(1)
+  useInfiniteScroll(refList, setPage)
   const { state } = useContext(AppContext)
 
-  const { loading, error, data } = useQuery(GET_EPISODES, {
+  const { loading, data } = useQuery(GET_EPISODES, {
     variables: { page, name: state.search },
   })
 

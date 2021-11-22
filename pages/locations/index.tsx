@@ -21,10 +21,11 @@ const Locations = () => {
 
   const refList = useRef(null)
   const [locationData, setLocationData] = useState<Location[]>([])
-  const [page] = useInfiniteScroll(refList)
+  const [page, setPage] = useState<number>(1)
+  useInfiniteScroll(refList, setPage)
   const { state } = useContext(AppContext)
 
-  const { loading, error, data } = useQuery(GET_LOCATIONS, {
+  const { loading, data } = useQuery(GET_LOCATIONS, {
     variables: { page, name: state.search },
   })
 
